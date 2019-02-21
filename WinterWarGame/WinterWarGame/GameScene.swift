@@ -9,6 +9,8 @@
 import SpriteKit
 import GameplayKit
 
+//Here i will show the ineptitude of the Red Army
+
 class GameScene: SKScene {
     
     private var label : SKLabelNode?
@@ -37,7 +39,12 @@ class GameScene: SKScene {
         }
     }
     
+    /*There will be
+    death to the red army
+    all over the white background
+    */
     
+    //they will not see this coming
     func touchDown(atPoint pos : CGPoint) {
         if let n = self.spinnyNode?.copy() as! SKShapeNode? {
             n.position = pos
@@ -53,6 +60,10 @@ class GameScene: SKScene {
             self.addChild(n)
         }
     }
+    
+    //'Ere we go
+    //You pull the pin then throw the other part
+    //Point us at the tanks
     
     func touchUp(atPoint pos : CGPoint) {
         if let n = self.spinnyNode?.copy() as! SKShapeNode? {
@@ -82,6 +93,8 @@ class GameScene: SKScene {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
     
+    //Override is the biggest so it's in charge
+    //Override is bigger than smaller runtier methods
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
