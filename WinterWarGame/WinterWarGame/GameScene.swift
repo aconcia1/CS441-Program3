@@ -12,59 +12,72 @@ import GameplayKit
 //Here i will show the ineptitude of the Red Army
 
 class GameScene: SKScene {
-    
+
     var finland:SKSpriteNode = SKSpriteNode()
-    
+    let rotateRec = UIRotationGestureRecognizer()
+
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
     }
-    
+
     override func didMove(to view: SKView) {
-        
+
         if let someFin:SKSpriteNode = self.childNode(withName: "Finland") as? SKSpriteNode {
-            
+
             finland = someFin
         }
-        
+
+        rotateRec.addTarget(self,action:#selector(GameScene.rotateView(_:)))
+
+        self.view!.addGestureRecognizer(rotateRec)
+
         finland.alpha = 1
     }
-    
+
+    @objc func rotateView(_ sender:UIRotationGestureRecognizer) {
+
+      if(sender.state == .began){
+
+        
+      }
+    }
+
     /*There will be
     death to the red army
     all over the white background
     */
-    
+
     //they will not see this coming
     func touchDown(atPoint pos : CGPoint) {
-        
+
     }
-    
+
     func touchMoved(toPoint pos : CGPoint) {
-        
+
     }
-    
+
     //'Ere we go
     //You pull the pin then throw the other part
     //Point us at the tanks
-    
+
     func touchUp(atPoint pos : CGPoint) {
-        
+
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    
+
     }
-    
+
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+
     }
-    
+
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
-    
+
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+
     }
-    
+
 }
