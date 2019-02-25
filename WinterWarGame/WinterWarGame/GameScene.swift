@@ -15,6 +15,9 @@ class GameScene: SKScene {
 
     var finland:SKSpriteNode = SKSpriteNode()
     let rotateRec = UIRotationGestureRecognizer()
+    let tapRec = UITapGestureRecognizer()
+    var theRotation:CGFloat = 0
+    var offset:CGFloat = 0
 
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
@@ -31,15 +34,30 @@ class GameScene: SKScene {
 
         self.view!.addGestureRecognizer(rotateRec)
 
-        finland.alpha = 1
+        tapRec.addTarget(self, action:#selector(GameScene.tappedView))
+        tapRec.numberOfTouchesRequired = 1
+        tapRec.numberOfTapsRequired = 1
+        self.view!.addGestureRecognizer(tapRec)
     }
 
     @objc func rotateView(_ sender:UIRotationGestureRecognizer) {
 
-      if(sender.state == .began){
-
+        if(sender.state == .began) {
+            
+        }
         
-      }
+        if(sender.state == .changed) {
+            
+            theRotation = CGFloat(sender.rotation) + self.offset
+            theRotation = theRotation * -1
+            
+            finland.zRotation = theRotation
+        }
+        
+        if(sender.state == .ended) {
+            
+            self.offset = finland.zRotation * -1
+        }
     }
 
     /*There will be
@@ -47,6 +65,16 @@ class GameScene: SKScene {
     all over the white background
     */
 
+    @objc func tappedView() {
+        
+        let xVector:CGFloat = sin(theRotation) * -10
+        let yVector:CGFloat = cos(theRotation) * 10
+        
+        let theVector:CGVector = CGVector(dx: xVector, dy: yVector)
+        
+        finland.physicsBody?.applyImpulse(theVector)
+    }
+    
     //they will not see this coming
     func touchDown(atPoint pos : CGPoint) {
 
