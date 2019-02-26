@@ -14,17 +14,36 @@ import GameplayKit
 class GameScene: SKScene {
 
     var finland:SKSpriteNode = SKSpriteNode()
+    var soviet1:SKSpriteNode = SKSpriteNode()
+    var soviet2:SKSpriteNode = SKSpriteNode()
+    var soviet3:SKSpriteNode = SKSpriteNode()
     let rotateRec = UIRotationGestureRecognizer()
     let tapRec = UITapGestureRecognizer()
     var theRotation:CGFloat = 0
     var offset:CGFloat = 0
+    let path = UIBezierPath()
 
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+        
     }
 
     override func didMove(to view: SKView) {
-
+        
+        if let someSov1:SKSpriteNode = self.childNode(withName: "Soviet1") as? SKSpriteNode {
+            
+            soviet1 = someSov1
+        }
+        
+        if let someSov2:SKSpriteNode = self.childNode(withName: "Soviet2") as? SKSpriteNode {
+            
+            soviet2 = someSov2
+        }
+        
+        if let someSov3:SKSpriteNode = self.childNode(withName: "Soviet3") as? SKSpriteNode {
+            
+            soviet3 = someSov3
+        }
+        
         if let someFin:SKSpriteNode = self.childNode(withName: "Finland") as? SKSpriteNode {
 
             finland = someFin
@@ -38,6 +57,16 @@ class GameScene: SKScene {
         tapRec.numberOfTouchesRequired = 1
         tapRec.numberOfTapsRequired = 1
         self.view!.addGestureRecognizer(tapRec)
+        
+        let finPoint:CGPoint = finland.position
+        
+        path.move(to: finPoint)
+        path.addLine(to: finPoint)
+        
+        let move = SKAction.follow(path.cgPath, speed: 200.0)
+        soviet1.run(move)
+        soviet2.run(move)
+        soviet3.run(move)
     }
 
     @objc func rotateView(_ sender:UIRotationGestureRecognizer) {
@@ -52,18 +81,19 @@ class GameScene: SKScene {
             theRotation = theRotation * -1
             
             finland.zRotation = theRotation
+            soviet1.zRotation = 0
+            soviet2.zRotation = 0
+            soviet3.zRotation = 0
         }
         
         if(sender.state == .ended) {
             
             self.offset = finland.zRotation * -1
+            soviet1.zRotation = 0
+            soviet2.zRotation = 0
+            soviet3.zRotation = 0
         }
     }
-
-    /*There will be
-    death to the red army
-    all over the white background
-    */
 
     @objc func tappedView() {
         
@@ -75,37 +105,4 @@ class GameScene: SKScene {
         finland.physicsBody?.applyImpulse(theVector)
     }
     
-    //they will not see this coming
-    func touchDown(atPoint pos : CGPoint) {
-
-    }
-
-    func touchMoved(toPoint pos : CGPoint) {
-
-    }
-
-    //'Ere we go
-    //You pull the pin then throw the other part
-    //Point us at the tanks
-
-    func touchUp(atPoint pos : CGPoint) {
-
-    }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-
-    }
-
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-
-    }
-
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-
-    }
-
 }
