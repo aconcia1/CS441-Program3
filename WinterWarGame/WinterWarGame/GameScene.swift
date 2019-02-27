@@ -22,6 +22,7 @@ class GameScene: SKScene {
     var theRotation:CGFloat = 0
     var offset:CGFloat = 0
     let path = UIBezierPath()
+    var bulletVar = SKSpriteNode()
 
     override func update(_ currentTime: TimeInterval) {
         
@@ -48,7 +49,7 @@ class GameScene: SKScene {
 
             finland = someFin
         }
-
+        
         rotateRec.addTarget(self,action:#selector(GameScene.rotateView(_:)))
 
         self.view!.addGestureRecognizer(rotateRec)
@@ -101,6 +102,18 @@ class GameScene: SKScene {
         let yVector:CGFloat = cos(theRotation) * 10
         
         let theVector:CGVector = CGVector(dx: xVector, dy: yVector)
+        
+        let bulletTexture = SKTexture(imageNamed: "bullet")
+        
+        bulletVar = SKSpriteNode(texture: bulletTexture)
+        
+        bulletVar.physicsBody = SKPhysicsBody(texture: bulletTexture, size:bulletVar.size)
+        
+        bulletVar.position = finland.position
+        
+        bulletVar.zRotation = finland.zRotation
+        
+        bulletVar.physicsBody?.applyForce(theVector)
         
         finland.physicsBody?.applyImpulse(theVector)
     }

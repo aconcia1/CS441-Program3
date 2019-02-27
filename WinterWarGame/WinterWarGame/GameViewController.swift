@@ -6,8 +6,6 @@
 //  Copyright © 2019 Anthony Conciatori. All rights reserved.
 //
 
-//ßNow that the game scene has been established i can enact my hatred of the union
-
 import UIKit
 import SpriteKit
 import GameplayKit
@@ -37,8 +35,6 @@ class GameViewController: UIViewController {
     override var shouldAutorotate: Bool {
         return true
     }
-
-    //I need to edit this file to fix the gui for the game
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -52,8 +48,6 @@ class GameViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
     }
-
-    //once i figure out how to edit this software
     
     override var prefersStatusBarHidden: Bool {
         return true
